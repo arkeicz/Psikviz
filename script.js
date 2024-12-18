@@ -1,19 +1,19 @@
 const API_KEY = 'live_tGEERVo0BxrhiUJcdXPzhVIqkCKix2cO343AkF7zApIqwu6mc6SkxUcrFachGUbf';
 let question = 0, score = 0, locked = false;
 
-// Funkce pro získání emoji podle skóre
+// emoji podle skóre
 function getScoreEmoji(score) {
     if (score === 5) return '🏆';
     if (score >= 3) return '👏';
     return '😞';
 }
 
-// Funkce pro správu historie výsledků
+// výsledky
 function manageScoreHistory(newScore) {
-    // Načtení existujících skóre z localStorage, nebo vytvoření prázdného pole
+    // načtení skóre z localstorage 
     let scores = JSON.parse(localStorage.getItem('dogQuizScores') || '[]');
     
-    // Přidání nového výsledku s aktuálním datem, časem a emoji
+    // přidání nového výsledku s aktuálním datem, časem a emoji
     scores.push({
         score: newScore,
         emoji: getScoreEmoji(newScore),
@@ -21,18 +21,18 @@ function manageScoreHistory(newScore) {
         time: new Date().toLocaleTimeString('cs-CZ')
     });
     
-    // Ponechání pouze posledních 5 výsledků
+    // posledních 5 výsledků
     if (scores.length > 5) {
         scores = scores.slice(-5);
     }
     
-    // Uložení aktualizované historie zpět do localStorage
+    // uložení aktualizované historie zpět do localstorage
     localStorage.setItem('dogQuizScores', JSON.stringify(scores));
     
     return scores;
 }
 
-// Funkce pro vytvoření HTML kódu historie výsledků
+// vytvoření html historie výsledků
 function getScoreHistoryHTML(scores) {
     if (scores.length === 0) return '';
     
@@ -113,7 +113,7 @@ function guess(picked, correct, btn) {
 }
 
 function showResult() {
-    // Uložení výsledku do historie
+    // uložení výsledku do historie
     const scoreHistory = manageScoreHistory(score);
     const emoji = getScoreEmoji(score);
     
